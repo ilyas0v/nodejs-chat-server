@@ -23,9 +23,8 @@ app.get("/", (req: any, res: any) => {
     return 'Chat API';
 });
 
-
 var userCount = 0;
-var lastMessages = [];
+var lastMessages: any[] = [];
 
 io.on("connection", (socket: any) => {
 
@@ -34,17 +33,23 @@ io.on("connection", (socket: any) => {
     });
 
     socket.on("message",  (message: any) => {
-        io.emit('message', (new Message(message.sender, message.content, getCurrentTime(), (message.isImage || false), false)));
+        var newMessage = new Message(message.sender, message.content, getCurrentTime(), (message.isImage || false), false);
+        io.emit('message', newMessage);
+        lastMessages.push(newMessage);
     });
 
     socket.on('user_join', (nickname: any) => {
-        io.emit('message', (new Message('System', `'${nickname}' has joined the room`, getCurrentTime(), false, true)));
+        var newMessage = new Message('System', `'${nickname}' has joined the room`, getCurrentTime(), false, true);
+        io.emit('message', newMessage);
+        lastMessages.push(newMessage);
     });
     
     io.emit('user_count', ++userCount);
 });
 
-
+app.get('/messages', (req: any, res: any) => {
+    res.json({ messages: lastMessages });
+});
 
 function getCurrentTime() : string
 {
