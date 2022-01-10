@@ -38,10 +38,12 @@ io.on("connection", (socket: any) => {
     });
 
     socket.on("message",  (message: any) => {
+        
+        let newMessage = new Message(message.sender, message.content, getCurrentTime(), (message.isImage || false), false);
         if(message.isImage)
         {
             let uploadedFilename = storeImage(message.content);
-            var newMessage = new Message(message.sender, (uploadedFilename || message.content), getCurrentTime(), (message.isImage || false), false);
+            newMessage.content = uploadedFilename;
         }
         io.emit('message', newMessage);
         lastMessages.push(newMessage);
