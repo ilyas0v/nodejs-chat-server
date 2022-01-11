@@ -1,6 +1,11 @@
 export class Message
 {
-    constructor(sender: string, content: string, time: string, isImage: boolean = false, isSystemMessage: boolean = false)
+    constructor(sender: string, 
+                content: string, 
+                time: string, 
+                isImage: boolean = false, 
+                isSystemMessage: 
+                boolean = false)
     {
         this.sender = sender;
         this.content = content;
