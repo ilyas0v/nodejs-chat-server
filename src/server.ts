@@ -36,6 +36,6 @@ app.post('/send-message', (req: any, res: any) => { receiveMessage(req, res, io)
 app.get('/messages', (req: any, res: any) => { getAllMessages(req, res); });
 app.get('/remove-messages', (req: any, res: any) => { removeAllMessages(req, res); });
 
-const server = \\http.listen(3000, () => {
+const server = http.listen(3000, () => {
     console.log("listening on *:3000");
 });
