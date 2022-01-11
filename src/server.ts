@@ -1,11 +1,13 @@
 import * as express from "express";
 import { Server } from 'http';
 import * as socketIo from 'socket.io';
+import * as cors from 'cors';
 import { receiveMessage, getAllMessages, removeAllMessages } from "./controllers/MessageController";
 import { onConnect, onDisconnect, onJoin, onStopTyping, onTyping } from './controllers/UserController';
 
 const app = express();
 
+app.use(cors());
 app.use( express.json({ limit: '50mb' }) );
 app.use( '/uploads', express.static('uploads') );
 
