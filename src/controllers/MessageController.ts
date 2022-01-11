@@ -4,6 +4,8 @@ import { getCurrentTime } from "../tools/Time";
 
 export const lastMessages: Message[] = [];
 
+const MAX_MEMORY_MESSAGE = 1000;
+
 /**
  * 
  * @param base64 - Base64 representation of the file (string)
@@ -37,6 +39,12 @@ export const receiveMessage = (req: any, res: any, io: any) => {
         newMessage.content = uploadedFilename;
     }
     io.emit('message', newMessage);
+
+    if (lastMessages.length === MAX_MEMORY_MESSAGE)
+    {
+        lastMessages.shift();
+    }
+    
     lastMessages.push(newMessage);
 
     res.json({ success: lastMessages });
