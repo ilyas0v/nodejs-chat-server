@@ -1,6 +1,6 @@
 import * as express from "express";
 import { Server } from 'http';
-import * as socketIo from 'socket.io';
+import * as socketIO from 'socket.io';
 import * as cors from 'cors';
 import { receiveMessage, getAllMessages, removeAllMessages } from "./controllers/MessageController";
 import { onConnect, onDisconnect, onJoin, onStopTyping, onTyping } from './controllers/UserController';
@@ -12,12 +12,7 @@ app.use( express.json({ limit: '50mb' }) );
 app.use( '/uploads', express.static('uploads') );
 
 const http = new Server(app);
-
-const io = socketIo(http, {
-    cors: {
-        origin: '*'
-    }
-});
+const io   = socketIO(http, { cors: { origin: '*' } });
 
 /**
  * WEBSOCKET OPERATIONS

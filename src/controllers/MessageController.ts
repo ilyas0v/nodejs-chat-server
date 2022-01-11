@@ -4,6 +4,12 @@ import { getCurrentTime } from "../tools/Time";
 
 export const lastMessages: Message[] = [];
 
+/**
+ * 
+ * @param base64 - Base64 representation of the file (string)
+ * @param folder - Destination folder where the file will be upload
+ * @returns {string} - Full source path of the uploaded file
+ */
 export const storeImage = (base64: string, folder: string) => {
     var extension = base64.split(';')[0].split('/')[1];
 
